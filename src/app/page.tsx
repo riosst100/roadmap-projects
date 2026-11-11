@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import ImportExportButtons from "@/components/ImportExportButtons";
 
 export const dynamic = "force-dynamic";
 
@@ -21,12 +22,15 @@ export default async function HomePage() {
             saja yang punya link.
           </p>
         </div>
-        <Link
-          href="/new"
-          className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-sky-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-200 transition hover:opacity-90"
-        >
-          + Project Baru
-        </Link>
+        <div className="flex flex-col items-center gap-3 sm:items-end">
+          <Link
+            href="/new"
+            className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-sky-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-200 transition hover:opacity-90"
+          >
+            + Project Baru
+          </Link>
+          <ImportExportButtons />
+        </div>
       </header>
 
       <section>

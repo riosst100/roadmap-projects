@@ -5,10 +5,18 @@ import { formatRupiah } from "@/lib/currency";
 
 export default function ItemModal({
   columnLabel,
+  initialValues,
   onClose,
   onSubmit,
 }: {
   columnLabel: string;
+  initialValues?: {
+    title: string;
+    description: string;
+    purpose: string;
+    cost: string;
+    priority: string;
+  };
   onClose: () => void;
   onSubmit: (data: {
     title: string;
@@ -18,11 +26,12 @@ export default function ItemModal({
     priority: string;
   }) => void;
 }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [purpose, setPurpose] = useState("");
-  const [cost, setCost] = useState("");
-  const [priority, setPriority] = useState("medium");
+  const [title, setTitle] = useState(initialValues?.title ?? "");
+  const [description, setDescription] = useState(initialValues?.description ?? "");
+  const [purpose, setPurpose] = useState(initialValues?.purpose ?? "");
+  const [cost, setCost] = useState(initialValues?.cost ?? "");
+  const [priority, setPriority] = useState(initialValues?.priority ?? "medium");
+  const isEdit = !!initialValues;
   const costNumber = Number(cost);
 
   useEffect(() => {
@@ -55,7 +64,7 @@ export default function ItemModal({
         className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl border border-white bg-white p-5 shadow-xl sm:p-6"
       >
         <h3 className="text-base font-semibold text-slate-900">
-          Tambah Item ke {columnLabel}
+          {isEdit ? "Edit Item" : `Tambah Item ke ${columnLabel}`}
         </h3>
 
         <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
@@ -155,7 +164,7 @@ export default function ItemModal({
               disabled={!title.trim()}
               className="flex-1 rounded-xl bg-gradient-to-r from-indigo-600 to-sky-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-200 transition hover:opacity-90 disabled:opacity-40 disabled:shadow-none"
             >
-              Tambah
+              {isEdit ? "Simpan" : "Tambah"}
             </button>
           </div>
         </form>
